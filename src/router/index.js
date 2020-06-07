@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Counters from '../components/Counters'
+import Timers from '../components/Timers'
 import Stats from '../components/Stats'
 
 Vue.use(Router)
@@ -15,12 +15,12 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect: { name: 'counters' }
+      redirect: { name: 'timers' }
     },
     {
-      path: '/counters/:date?',
-      name: 'counters',
-      component: Counters,
+      path: '/timers/:date?',
+      name: 'timers',
+      component: Timers,
       props: true
     },
     {
