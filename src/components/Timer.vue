@@ -1,5 +1,5 @@
 <template>
-  <div class="timer" :class="this.state">
+  <div class="timer" :class="this.state + ' ' + this.config['color']">
       <div class="timer-name">{{name}}</div>
       <div class="timer-duration">{{duration}}</div>
 
@@ -13,8 +13,23 @@
           </template>
         </span>
         <div>
-          <img class="icon small settings" src="../assets/icons/settings.svg" alt="Timer settings">
+          <img class="icon small settings" src="../assets/icons/sound-mix.svg" alt="Timer settings">
         </div>
+
+        <modal name="settings">
+          <h2>Timer Settings</h2>
+          <div slot="top-right">
+            <button @click="$modal.hide('settings')">
+              <img class="icon" src="../assets/icons/cross.svg" alt="Close Settings">
+            </button>
+          </div>
+          <slot name="footer">
+            default footer
+            <button class="modal-default-button" @click="$modal.hide('settings')">
+              OK
+            </button>
+          </slot>
+        </modal>
       </div>
 
   </div>
@@ -31,6 +46,7 @@ export default {
   data () {
     return {
       state: 'new',
+      config: {},
       duration: '00:00:00',
       timer: undefined,
       stages: []
@@ -40,7 +56,8 @@ export default {
   },
   created () {
     // load data from localstorage
-    this.fromStorage()
+    this.loadStages()
+    this.loadConfig()
     this.updateDuration()
     if (this.state == 'running') { this.timer = setInterval(this.updateDuration, 500) }
   },
@@ -51,13 +68,20 @@ export default {
       localStorage.setItem(this.date, JSON.stringify(timerData))
       console.log('Storing ' + this.date + '/' + this.name + ', stages: ' + JSON.stringify(timerData[this.name]))
     },
-    fromStorage () {
+    loadStages () {
       let storedData = localStorage.getItem(this.date)
       if (storedData !== null && JSON.parse(storedData)[this.name]) {
         this.stages = JSON.parse(storedData)[this.name]
       }
       this.setState()
-      console.log('Loaded ' + this.name + ', stages: ' + JSON.stringify(this.stages))
+      console.log('Loaded stages for "' + this.name + '": ' + JSON.stringify(this.stages))
+    },
+    loadConfig () {
+      let config = JSON.parse(localStorage.getItem('config'))
+      if ( config['timers'][this.name] !== undefined ) {
+        this.config = config['timers'][this.name]
+      }
+      console.log('Loaded config for "' + this.name + '": ' + JSON.stringify(this.config))
     },
     setState () {
       if (this.stages.length === 0) {
@@ -96,6 +120,10 @@ export default {
     padTime(time) {
       return (time < 10 ? "0" : "") + time
     },
+    showSettings() {
+      // https://www.npmjs.com/package/vue-js-modal
+      this.$modal.show('settings')
+    }
   }
 }
 </script>
@@ -136,21 +164,42 @@ export default {
 .timer::after {
   width: 90%;
   height: 90%;
-  border: 6px solid #54A89F;
+  border: 6px solid;
+  border-color: #54A89F;
+}
+
+.timer.yellow::after {
+  border-color: #E9D37F;
+}
+
+.timer.orange::after {
+  border-color: #D86235;
+}
+
+.timer.red::after {
+  border-color: #C73037;
+}
+
+.timer.green::after {
+  border-color: #31998B;
+}
+
+.timer.blue::after {
+  border-color: #229FAD;
 }
 
 .timer.running::after {
   -webkit-animation: animate 2s linear infinite;
   -moz-animation: animate 2s linear infinite;
   animation: animate 2s linear infinite;
-  border: 1px solid #54A89F;
-  box-shadow: inset 0px 0px 0px #54A89F;
+  border-width: 1px;
+  box-shadow: inset 0px 0px 0px;
 }
 
 @keyframes animate {
   0% { width: 82%; height: 82%; opacity: 0.5; }
   15% { opacity: 0.8;}
-  85% { width: 97%; height: 97%; opacity: 1; border-width: 4px; box-shadow: inset 0px 0px 10px #54A89F; }
+  85% { width: 95%; height: 95%; opacity: 1; border-width: 8px; box-shadow: inset 0px 0px 10px }
   100% { opacity: 0.5; }
 }
 
@@ -165,7 +214,9 @@ export default {
   margin: 0.5rem;
 }
 
-.settings:hover {
+.settings {
+  opacity: 0.3;
+  transition: 0.3s;
 }
 
 </style>

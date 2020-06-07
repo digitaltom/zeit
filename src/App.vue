@@ -10,11 +10,19 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created: function () {
+    let config = JSON.parse(localStorage.getItem('config'))
+    if ( config === null ) { config = {} }
+    if ( config['timers'] === undefined ) { config['timers'] = {} }
+    localStorage.setItem('config', JSON.stringify(config))
+  }
 }
 </script>
 
 <style>
+
+/* Color palette:  */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
 
@@ -23,7 +31,9 @@ html {
 }
 
 body {
+  font-family: 'Open Sans Condensed', sans-serif;
   background: #2F7789;
+  color: #CFD9B7;
   font-size: 1.1em;
   margin: 0;
   padding: 0;
@@ -31,6 +41,10 @@ body {
 
 .hidden {
   display: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 .icon {
@@ -49,11 +63,9 @@ body {
 }
 
 #app {
-  font-family: 'Open Sans Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #CFD9B7;
   margin-top: 20px;
 }
 </style>
