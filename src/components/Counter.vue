@@ -1,12 +1,12 @@
 <template>
-  <div class="counter">
+  <div class="counter" :class="this.state">
     <a v-on:click='this.toggleStart'>
 
       <div class="counter-session">{{name}}</div>
       <div class="counter-time">{{duration}}</div>
 
       <div class="play-pause">
-        <span v-if="this.state == 'run'">
+        <span v-if="this.state == 'running'">
           <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M8.016.016H12v13.968H8.016V.016zM0 13.984V.016h3.984v13.968H0z" fill="#FFF" fill-rule="nonzero"/></svg>
         </span>
         <span v-else>
@@ -38,7 +38,7 @@ export default {
     // load data from localstorage
     this.fromStorage()
     this.updateDuration()
-    if (this.state == 'run') { this.timer = setInterval(this.updateDuration, 500) }
+    if (this.state == 'running') { this.timer = setInterval(this.updateDuration, 500) }
   },
   methods: {
     toStorage () {
@@ -59,7 +59,7 @@ export default {
       if (this.stages.length === 0) {
         this.state = 'new'
       } else if (this.stages[this.stages.length - 1]['end_at'] === undefined) {
-        this.state =  'run'
+        this.state =  'running'
       } else {
         this.state = 'pause'
       }
@@ -82,7 +82,7 @@ export default {
       if( this.state == 'new' || this.state == 'pause' ) {
         this.stages.push({ 'start_at': new Date().getTime() })
         this.timer = setInterval(this.updateDuration, 500)
-      } else if (this.state == 'run') {
+      } else if (this.state == 'running') {
         clearInterval(this.timer)
         this.stages[this.stages.length - 1]['end_at'] = new Date().getTime()
       }
@@ -132,7 +132,18 @@ export default {
 .counter::after {
   width: 90%;
   height: 90%;
-  border: 4px solid #54A89F;
+  border: 6px solid #54A89F;
+}
+
+.counter.running::after {
+  animation: animate 1.5s linear infinite;
+}
+
+@keyframes animate {
+  0% { width: 82%; height: 82%; opacity: 0.3;}
+  15% { width: 82%; height: 82%; opacity: 0.3;}
+  85% { width: 98%; height: 98%; }
+  100% { width: 98%; height: 98%; }
 }
 
 .counter-session {
