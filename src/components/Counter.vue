@@ -107,8 +107,9 @@ export default {
   flex-flow: column wrap;
   width: 224px;
   height: 224px;
-  border: 4px solid #54A89F;
+  border: 1px solid rgba(255, 255, 255, .75);
   border-radius: 50%;
+  margin: 15px;
 }
 
 .counter::before, .counter::after {
@@ -117,20 +118,21 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  border: 1px solid rgba(255, 255, 255, .75);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   z-index: -100;
 }
 
 .counter::before {
-  width: 115%;
-  height: 115%;
+  width: 82%;
+  height: 82%;
+  border: 1px solid rgba(255, 255, 255, .75);
 }
 
 .counter::after {
   width: 90%;
   height: 90%;
+  border: 4px solid #54A89F;
 }
 
 .counter-session {

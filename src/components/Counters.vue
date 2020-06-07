@@ -1,6 +1,6 @@
 <template>
   <div class="counters">
-    <h2>Todays timers</h2>
+    <h2>Today's timers</h2>
     <div class="counter-list flex-center">
       <Counter name="Arbeit" :date="date"/>
       <Counter name="Sport" :date="date"/>
@@ -18,9 +18,13 @@ export default {
     Counter
   },
   props: {
-    date: String // date in format yyyy-mm-dd
+    date: {
+      type: String,
+      default: new Date().toISOString().split('T')[0] // date in format yyyy-mm-dd
+    }
   },
   created: function () {
+    console.log('Timers for: ' + this.date)
     if (localStorage.getItem(this.date) === null) { localStorage.setItem(this.date, JSON.stringify({})) }
     this.clearAllTimers()
   },
@@ -43,6 +47,7 @@ export default {
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+  flex-wrap: wrap;
 }
 
 </style>
@@ -50,7 +55,6 @@ export default {
 <style scoped>
 
 h2 {
-  margin-bottom: 60px;
 }
 
 </style>

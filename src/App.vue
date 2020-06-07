@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <Counters :date="new Date().toISOString().split('T')[0]"/>
+    <transition name="fade">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
 <script>
-import Counters from './components/Counters.vue'
-
 export default {
-  name: 'App',
-  components: {
-    Counters
-  }
+  name: 'App'
 }
 </script>
 
