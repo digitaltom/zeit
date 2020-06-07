@@ -33,6 +33,21 @@ body {
   display: none;
 }
 
+.icon {
+  opacity: 0.7;
+  width: 40px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon.small {
+  width: 20px;
+}
+
+.icon:hover {
+  opacity: 0.9;
+}
+
 #app {
   font-family: 'Open Sans Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
