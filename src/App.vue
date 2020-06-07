@@ -16,12 +16,30 @@ export default {
 </script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  background: #2F7789;
+  font-size: 1.1em;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #CFD9B7;
+  margin-top: 20px;
 }
 </style>
