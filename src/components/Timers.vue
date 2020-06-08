@@ -1,6 +1,10 @@
 <template>
   <div class="timers">
+
     <h2>Today's timers</h2>
+    <router-link :to="{ name: 'stats', params: {} }">
+      <img class="icon small" src="../assets/icons/line-graph.svg" alt="Timer statistics">
+    </router-link>
     <div class="timer-list flex-center">
       <template v-for="timer in timers">
         <timer v-bind:key="timer" :name="timer" :date="date"/>

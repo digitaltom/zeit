@@ -1,6 +1,9 @@
 <template>
   <div class="stats">
     <h2>Statistics</h2>
+    <router-link :to="{ name: 'timers', params: {date: '2020-06-06'} }">
+      <img class="icon small" src="../assets/icons/time-slot.svg" alt="Timers">
+    </router-link>
 
     <canvas id="timerChart" width="400" height="400"></canvas>
 

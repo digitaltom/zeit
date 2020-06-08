@@ -9,8 +9,7 @@ Vue.use(Router)
 // https://mattstauffer.co/blog/getting-started-using-vues-vue-router-for-single-page-apps
 
 export default new Router({
-  mode: 'history',
-  base: '/zeit',
+  mode: 'hash',
   routes: [
     {
       path: '/stats',
