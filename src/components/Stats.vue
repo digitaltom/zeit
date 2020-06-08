@@ -5,16 +5,19 @@
       <img class="icon small" src="../assets/icons/time-slot.svg" alt="Timers">
     </router-link>
 
-    <canvas id="timerChart" width="400" height="400"></canvas>
+    <div class="chart center">
+      <chartist
+      ratio="ct-major-tenth"
+      type="Bar"
+      :data="chartData"
+      :options="chartOptions">
+      </chartist>
+    </div>
 
-    <pre>
-      {{stats}}
-    </pre>
   </div>
 </template>
 
 <script>
-import Chart from 'chart.js'
 
 export default {
   name: 'Stats',
@@ -22,67 +25,46 @@ export default {
   },
   data () {
     return {
-      stats: {}
+      stats: {},
+      chartData: {
+        labels: [],
+        series: [
+          [5, 4, 3, 7, 5, 10, 3],
+          [3, 2, 9, 5, 4, 6, 4]
+        ]
+      },
+      chartOptions: {
+        seriesBarDistance: 10,
+        reverseData: true,
+        horizontalBars: true,
+        axisY: {
+          offset: 70
+        }
+      }
     }
   },
   created: function () {
     var component = this
     var keys = Object.keys(localStorage)
     keys.forEach(function (key) {
-      component.stats[key] = localStorage.getItem(key)
+      component.chartData['labels'].push(key)
+      // localStorage.getItem(key)
     })
-
-    const ctx = document.getElementById('timerChart')
-
-    new Chart(ctx, {
-      // The type of chart we want to create
-      type: 'line', // also try bar or other graph types
-
-      // The data for our dataset
-      data: {
-        labels: ["Jun 2016", "Jul 2016", "Aug 2016", "Sep 2016", "Oct 2016", "Nov 2016", "Dec 2016", "Jan 2017", "Feb 2017", "Mar 2017", "Apr 2017", "May 2017"],
-        // Information about the dataset
-        datasets: [{
-          label: "Rainfall",
-          backgroundColor: 'lightblue',
-          borderColor: 'royalblue',
-          data: [26.4, 39.8, 66.8, 66.4, 40.6, 55.2, 77.4, 69.8, 57.8, 76, 110.8, 142.6],
-        }]
-      },
-
-      // Configuration options
-      options: {
-        layout: {
-          padding: 10,
-        },
-        legend: {
-          position: 'bottom',
-        },
-        title: {
-          display: true,
-          text: 'Precipitation in Toronto'
-        },
-        scales: {
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Precipitation in mm'
-            }
-          }],
-          xAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Month of the Year'
-            }
-          }]
-        }
-      }
-    });
-
   }
 }
 </script>
 
 <style scoped>
+
+@import "../../node_modules/chartist/dist/chartist.css";
+
+.chart {
+  max-width: 500px;
+}
+
+.center {
+  margin: auto;
+  padding: 10px;
+}
 
 </style>
