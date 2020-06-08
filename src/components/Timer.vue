@@ -1,38 +1,59 @@
 <template>
   <div class="timer" :class="this.state + ' ' + this.config['color']">
-      <div class="timer-name">{{name}}</div>
-      <div class="timer-duration">{{duration}}</div>
+    <div class="timer-name">{{name}}</div>
+    <div class="timer-duration">{{duration}}</div>
 
-      <div class="controls">
-        <span v-on:click='this.toggleStart'>
-          <template v-if="this.state == 'running'">
-            <img class="icon" src="../assets/icons/pause.svg" alt="Pause timer">
-          </template>
-          <template v-else>
-            <img class="icon" src="../assets/icons/play.svg" alt="Start timer">
-          </template>
-        </span>
-        <div>
-          <img class="icon small settings" src="../assets/icons/sound-mix.svg" alt="Timer settings">
-        </div>
-
-        <modal name="settings">
-          <h2>Timer Settings</h2>
-          <div slot="top-right">
-            <button @click="$modal.hide('settings')">
-              <img class="icon" src="../assets/icons/cross.svg" alt="Close Settings">
-            </button>
-          </div>
-          <slot name="footer">
-            default footer
-            <button class="modal-default-button" @click="$modal.hide('settings')">
-              OK
-            </button>
-          </slot>
-        </modal>
+    <div class="controls">
+      <span v-on:click='this.toggleStart'>
+        <template v-if="this.state == 'running'">
+          <img class="icon" src="../assets/icons/pause.svg" alt="Pause timer">
+        </template>
+        <template v-else>
+          <img class="icon" src="../assets/icons/play.svg" alt="Start timer">
+        </template>
+      </span>
+      <div>
+        <img class="icon small settings" src="../assets/icons/sound-mix.svg" alt="Timer settings">
       </div>
 
+      <modal name="configure" height="auto" :scrollable="true"
+      :adaptive="true" :maxWidth="400" :pivotY="0.3" classes="configure-timer-modal">
+      <h2>Configure Timer</h2>
+
+      <div class="option">
+        <b>Name:</b>
+        <input name="name" class="" v-model.trim="this.name" maxlength="40">
+      </div>
+      <div class="option">
+        <b>Color:</b>
+        <select name="color" >
+          <option value="cyan">Cyan</option>
+          <option value="yellow">Yellow</option>
+          <option value="red">Red</option>
+          <option value="orange">Orange</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>
+      </div>
+
+      <div class="option">
+        <input type="checkbox" name="stats" id="form-stats">
+        <label for="form-stats">Collect statistics for this timer</label>
+      </div>
+
+      <div class="option">
+        <input type="checkbox" name="default" id="form-default">
+        <label for="form-default">Add timer by default each day</label>
+      </div>
+
+      <button class="" @click="$modal.hide('configure'); addTimer()">
+        Change Timer
+      </button>
+    </modal>
+
   </div>
+
+</div>
 
 </template>
 

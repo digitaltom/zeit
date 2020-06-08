@@ -105,14 +105,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  flex-wrap: wrap;
-}
-
 .new-timer-modal {
   background-color: #2F7789;
   border-radius: 4px;
@@ -125,71 +117,6 @@ export default {
 
 .new-timer-modal .option {
   margin: 10px;
-}
-
-.new-timer-modal input, .new-timer-modal select {
-  margin: 0 10px 0 10px;
-  border-radius: 3px;
-  border: none;
-}
-
-.new-timer-modal input {
-  padding: 5px;
-  box-sizing: border-box;
-}
-
-.new-timer-modal select {
-  padding: 2px 10px;
-  box-sizing: border-box;
-}
-
-.new-timer-modal button {
-  margin: 20px 10px 20px 10px;
-  padding: 10px;
-  background-color: #fff;
-  color: #9BA684;
-  border-radius: 2px;
-  border: none;
-}
-
-.new-timer-modal input[type="checkbox"] {
-  display: none;
-}
-
-.new-timer-modal input[type="checkbox"] + label {
-  position: relative;
-  display: inline-flex;
-  cursor: pointer;
-}
-input[type="checkbox"] + label:before {
-  width: 30px;
-  height: 15px;
-  margin-top: 5px;
-  border-radius: 15px;
-  border: 1px solid #ddd;
-  background-color: #EEE;
-  content: "";
-  margin-right: 7px;
-  transition: background-color 0.5s linear;
-}
-input[type="checkbox"] + label:after {
-  width: 15px;
-  height: 15px;
-  margin-top: 5px;
-  border-radius: 15px;
-  background-color: #fff;
-  content: "";
-  transition: margin 0.1s linear;
-  box-shadow: 0px 0px 2px #aaa;
-  position: absolute;
-  left: 1px;
-  top: 1px;
-}
-input[type="checkbox"]:checked+label:before{
-  background-color: #4EA1AE;
-}
-input[type="checkbox"]:checked+label:after {
-  margin: 5px 0 0 15px;
 }
 
 </style>
