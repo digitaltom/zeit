@@ -13,20 +13,15 @@ export default new Router({
   base: '/zeit',
   routes: [
     {
-      path: '/',
-      name: 'root',
-      redirect: { name: 'timers' }
-    },
-    {
-      path: '/timers/:date?',
-      name: 'timers',
-      component: Timers,
-      props: true
-    },
-    {
       path: '/stats',
       name: 'stats',
       component: Stats
+    },
+    {
+      path: '/:date?',
+      name: 'timers',
+      component: Timers,
+      props: true
     }
   ],
   // https://router.vuejs.org/guide/advanced/scroll-behavior.html
