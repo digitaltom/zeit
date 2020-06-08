@@ -168,6 +168,10 @@ export default {
   border-color: #54A89F;
 }
 
+.timer.cyan::after {
+  border-color: #54A89F;
+}
+
 .timer.yellow::after {
   border-color: #E9D37F;
 }

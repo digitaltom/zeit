@@ -15,41 +15,41 @@
     </div>
 
     <modal name="new" height="auto" :scrollable="true"
-      :adaptive="true" classes="new-timer-modal">
-      <div class="new-timer-modal">
-        <h2>Add Timer</h2>
+    :adaptive="true" :maxWidth="400" :pivotY="0.3" classes="new-timer-modal">
+      <h2>Add Timer</h2>
 
-        <ul>
-          <li>
-            <b>Name:</b>
-            <input name="name" class="" v-model.trim="new_timer.name" maxlength="40">
-          </li>
-          <li>
-            <b>Color:</b>
-            <select name="color" v-model.trim="new_timer.color">
-              <option value="yellow">Yellow</option>
-              <option value="red">Red</option>
-              <option value="orange">Orange</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
-            </select>
-          </li>
-          <li>
-            <input type="checkbox" name="stats" class="" v-model.trim="new_timer.stats">
-            Collect statistics for this timer
-          </li>
-          <li>
-            <input type="checkbox" name="default" class="" v-model.trim="new_timer.default">
-            Add timer by default each day
-          </li>
-        </ul>
-
-        <button class="" @click="$modal.hide('new'); addTimer()">
-          Add Timer
-        </button>
+      <div class="option">
+        <b>Name:</b>
+        <input name="name" class="" v-model.trim="new_timer.name" maxlength="40">
       </div>
-    </modal>
-  </div>
+      <div class="option">
+        <b>Color:</b>
+        <select name="color" v-model.trim="new_timer.color">
+          <option value="cyan">Cyan</option>
+          <option value="yellow">Yellow</option>
+          <option value="red">Red</option>
+          <option value="orange">Orange</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>
+      </div>
+
+      <div class="option">
+        <input type="checkbox" name="stats" id="form-stats" v-model.trim="new_timer.stats">
+        <label for="form-stats">Collect statistics for this timer</label>
+      </div>
+
+      <div class="option">
+        <input type="checkbox" name="default" id="form-default" v-model.trim="new_timer.default">
+        <label for="form-default">Add timer by default each day</label>
+      </div>
+
+      <button class="" @click="$modal.hide('new'); addTimer()">
+        Add Timer
+      </button>
+
+  </modal>
+</div>
 </template>
 
 <script>
@@ -69,7 +69,7 @@ export default {
   data () {
     return {
       timers: [],
-      new_timer: {},
+      new_timer: { color: 'cyan' },
       headline: 'Todays Timers'
     }
   },
@@ -113,37 +113,83 @@ export default {
   flex-wrap: wrap;
 }
 
+.new-timer-modal {
+  background-color: #2F7789;
+  border-radius: 4px;
+  border: 1px solid;
+}
+
 </style>
 
 <style scoped>
 
-h2 {
-}
-
-.new-timer-modal {
-  background: #2F7789;
-}
-
-.new-timer-modal ul {
-  list-style-type: none;
-}
-
-.new-timer-modal li {
+.new-timer-modal .option {
   margin: 10px;
 }
 
 .new-timer-modal input, .new-timer-modal select {
   margin: 0 10px 0 10px;
+  border-radius: 3px;
+  border: none;
+}
+
+.new-timer-modal input {
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.new-timer-modal select {
+  padding: 2px 10px;
+  box-sizing: border-box;
 }
 
 .new-timer-modal button {
-  margin: 10px;
+  margin: 20px 10px 20px 10px;
   padding: 10px;
-  background-color: #0B3C53;
-  color: #CFD9B7;
+  background-color: #fff;
+  color: #9BA684;
   border-radius: 2px;
   border: none;
 }
 
+.new-timer-modal input[type="checkbox"] {
+  display: none;
+}
+
+.new-timer-modal input[type="checkbox"] + label {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+input[type="checkbox"] + label:before {
+  width: 30px;
+  height: 15px;
+  margin-top: 5px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  background-color: #EEE;
+  content: "";
+  margin-right: 7px;
+  transition: background-color 0.5s linear;
+}
+input[type="checkbox"] + label:after {
+  width: 15px;
+  height: 15px;
+  margin-top: 5px;
+  border-radius: 15px;
+  background-color: #fff;
+  content: "";
+  transition: margin 0.1s linear;
+  box-shadow: 0px 0px 2px #aaa;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+}
+input[type="checkbox"]:checked+label:before{
+  background-color: #4EA1AE;
+}
+input[type="checkbox"]:checked+label:after {
+  margin: 5px 0 0 15px;
+}
 
 </style>
