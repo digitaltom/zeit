@@ -15,7 +15,7 @@
     </div>
 
     <modal name="new" height="auto" :scrollable="true"
-    :adaptive="true" :maxWidth="400" :pivotY="0.3" classes="new-timer-modal">
+    :adaptive="true" :maxWidth="350" :pivotY="0.3" classes="new-timer-modal">
       <h2>Add Timer</h2>
 
       <div class="option">
@@ -74,15 +74,13 @@ export default {
     }
   },
   created: function () {
-    console.log('Timers for: ' + this.date)
-    if (localStorage.getItem(this.date) === null) { localStorage.setItem(this.date, JSON.stringify({})) }
-    this.timers = Object.keys(JSON.parse(localStorage.getItem(this.date)))
-    if (this.timers.length === 0) { this.timers.push(' ') }
-    this.clearAllTimers()
     if (this.date !== new Date().toISOString().split('T')[0]) { this.headline = "Timers for " + this.date}
+    this.clearAllTimeouts()
+    this.timers = this.$storage.get_timer_names(this.date)
+    if (this.timers.length === 0) { this.timers.push(' ') }
   },
   methods: {
-    clearAllTimers() {
+    clearAllTimeouts() {
       var id = window.setTimeout(function() {}, 0)
       while (id--) {
         window.clearTimeout(id)
@@ -90,13 +88,9 @@ export default {
     },
     addTimer() {
       if ( this.new_timer.name === undefined ) { this.new_timer.name = ' ' }
+      this.$storage.set_timer_config (this.new_timer.name,
+        { color: this.new_timer.color, stats: this.new_timer.stats, default: this.new_timer.default })
       if ( !this.timers.includes(this.new_timer.name) ) { this.timers.push( this.new_timer.name ) }
-      let config = JSON.parse(localStorage.getItem('config'))
-      if ( config['timers'][this.new_timer.name] === undefined ) { config['timers'][this.new_timer.name] = {} }
-      config['timers'][this.new_timer.name]['color'] = this.new_timer.color
-      config['timers'][this.new_timer.name]['stats'] = this.new_timer.stats
-      config['timers'][this.new_timer.name]['default'] = this.new_timer.default
-      localStorage.setItem('config', JSON.stringify(config))
     },
   }
 }
@@ -106,8 +100,9 @@ export default {
 <style>
 
 .new-timer-modal {
-  background-color: #2F7789;
-  border-radius: 4px;
+  background-color: #fff;
+  color: #2F7789;
+  border-radius: 10px;
   border: 1px solid;
 }
 

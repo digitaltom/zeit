@@ -17,7 +17,7 @@
       </div>
 
       <modal name="configure" height="auto" :scrollable="true"
-      :adaptive="true" :maxWidth="400" :pivotY="0.3" classes="configure-timer-modal">
+        :adaptive="true" :maxWidth="400" :pivotY="0.3" classes="configure-timer-modal">
       <h2>Configure Timer</h2>
 
       <div class="option">

@@ -87,20 +87,24 @@ input, .new-timer-modal select {
 input {
   padding: 5px;
   box-sizing: border-box;
+  color: #2F7789;
+  border: 2px solid #ddd;
+  border-radius: 3px;
 }
 
 select {
   padding: 2px 10px;
   box-sizing: border-box;
+  border-radius: 3px;
 }
 
 button {
   margin: 20px 10px 20px 10px;
   padding: 10px;
   background-color: #fff;
-  color: #9BA684;
+  color: #2F7789;
   border-radius: 2px;
-  border: none;
+  border: 2px solid #ddd;
 }
 
 input[type="checkbox"] {
