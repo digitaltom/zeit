@@ -1,7 +1,7 @@
 <template>
   <div class="timers">
 
-    <h2>Today's timers</h2>
+    <h2>{{headline}}</h2>
     <router-link :to="{ name: 'stats', params: {} }">
       <img class="icon small" src="../assets/icons/line-graph.svg" alt="Timer statistics">
     </router-link>
@@ -14,7 +14,8 @@
       <img class="icon" v-on:click='$modal.show("new")' src="../assets/icons/circle-with-plus.svg" alt="Add Timer">
     </div>
 
-    <modal name="new" height="auto" :scrollable="true" classes="new-timer-modal">
+    <modal name="new" height="auto" :scrollable="true"
+      :adaptive="true" classes="new-timer-modal">
       <div class="new-timer-modal">
         <h2>Add Timer</h2>
 
@@ -68,7 +69,8 @@ export default {
   data () {
     return {
       timers: [],
-      new_timer: {}
+      new_timer: {},
+      headline: 'Todays Timers'
     }
   },
   created: function () {
@@ -77,6 +79,7 @@ export default {
     this.timers = Object.keys(JSON.parse(localStorage.getItem(this.date)))
     if (this.timers.length === 0) { this.timers.push(' ') }
     this.clearAllTimers()
+    if (this.date !== new Date().toISOString().split('T')[0]) { this.headline = "Timers for " + this.date}
   },
   methods: {
     clearAllTimers() {
