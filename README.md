@@ -1,24 +1,16 @@
-# zeit
+# Zeit
 
-## Project setup
-```
-yarn install
-```
+Is a project to run and collect statistics of locally running timers.
+No server side code and storage is used, no tracking, you own your data!
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+Try it out at: https://digitaltom.github.io/zeit/
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Development setup
 
-### Lints and fixes files
-```
-yarn lint
-```
+Install dependencies: `yarn install`
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Development server: `yarn serve`
+
+Compile and minify for production: `yarn build`
+
+Deploy: `bin/deploy.sh`
