@@ -45,14 +45,24 @@ export default {
   },
   created: function () {
     var component = this
-    var keys = Object.keys(localStorage)
-    keys.forEach(function (key) {
-      component.chartData['labels'].push(key)
-      // localStorage.getItem(key)
+    const labels = Object.keys(localStorage).filter(key => key.match(/\d+-\d+-\d+/))
+
+    labels.sort().forEach(function (label) {
+      component.chartData['labels'].push(label)
+      // localStorage.getItem(label)
     })
   }
 }
 </script>
+
+<style>
+
+.ct-label {
+  color: #CFD9B7 !important;
+  font-size: 0.9rem !important;
+}
+
+</style>
 
 <style scoped>
 
